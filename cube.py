@@ -60,7 +60,6 @@ class Cube(object):
             face = Side[face]
         elif isinstance(face, int):
             face = Side(face)
-        print(face)
         return {c for c in self.cubies if face in c.faces}
 
     def __getitem__(self, item):
@@ -90,9 +89,7 @@ class Cube(object):
     def do(self, algorithm):
         algorithm = [Rotation(step) for step in algorithm.split()]
         for rotation in algorithm:
-            print(rotation)
             face = self.face(rotation.face)
-            print(face)
             for cubie in face:
                 cubie.faces = {rotation.seq.get(k, k): v for k, v in cubie.faces.items()}
 
