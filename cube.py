@@ -3,26 +3,22 @@ from textwrap import dedent
 
 
 class Side(Enum):
-    L = 1
-    R = 2
-    U = 4
-    D = 8
-    F = 16
-    B = 32
+    L = auto()
+    R = auto()
+    U = auto()
+    D = auto()
+    F = auto()
+    B = auto()
 
 
 side_colors = {
-    Side.L: 'O',
-    Side.R: 'R',
-    Side.U: 'W',
-    Side.D: 'Y',
+    Side.L: 'R',
+    Side.R: 'O',
+    Side.U: 'Y',
+    Side.D: 'W',
     Side.F: 'G',
     Side.B: 'B',
 }
-
-
-# def cubie(sides_mask):
-#     return ''.join(s.name for s in Side if s.value & sides_mask)
 
 
 class Cubie(object):
@@ -35,6 +31,11 @@ class Cubie(object):
 
     def __repr__(self):
         return ''.join(sorted(f.name for f in self.faces.values()))
+
+    def copy(self):
+        c = Cubie([])
+        c.faces = {k: v for k, v in self.faces.items()}
+        return c
 
     @staticmethod
     def is_valid(cubie_name):
@@ -87,11 +88,20 @@ class Cube(object):
         print(self._ASCII_BASE.format(*[side_colors[s] for s in sides]))
 
     def do(self, algorithm):
-        algorithm = [Rotation(step) for step in algorithm.split()]
+        if isinstance(algorithm, str):
+            algorithm = [Rotation(step) for step in algorithm.split()]
         for rotation in algorithm:
+            if isinstance(rotation, str):
+                rotation = Rotation(rotation)
             face = self.face(rotation.face)
             for cubie in face:
                 cubie.faces = {rotation.seq.get(k, k): v for k, v in cubie.faces.items()}
+        return self
+
+    def copy(self):
+        cube = Cube()
+        cube.cubies = {c.copy() for c in self.cubies}
+        return cube
 
 
 class Rotation(object):
@@ -105,6 +115,7 @@ class Rotation(object):
     }
 
     def __init__(self, name):
+        self.name = name
         if isinstance(name, Rotation):
             self.face = name.face
             self.seq = name.seq
@@ -123,9 +134,13 @@ class Rotation(object):
     def __repr__(self):
         return f"Rotation: {self.face}/{self.seq}"
 
+    def __str__(self):
+        return self.name
+
 
 if __name__ == '__main__':
     cube = Cube()
     cube.ascii()
     cube.do("L R F' B' U2 D2")
     cube.ascii()
+    cube.copy().ascii()
