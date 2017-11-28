@@ -30,7 +30,9 @@ class Cubie(object):
         return self.faces[Side[item]]
 
     def __repr__(self):
-        return ''.join(sorted(f.name for f in self.faces.values()))
+        pos = ''.join(face.name for face, face_home in sorted(self.faces.items(), key=lambda pair: pair[1].value))
+        home = ''.join(face.name for face in sorted(self.faces.values(), key=lambda f: f.value))
+        return f'{pos} -> {home}'
 
     def copy(self):
         c = Cubie([])
@@ -47,7 +49,7 @@ class Cubie(object):
 
 
 class Cube(object):
-    def __init__(self):
+    def __init__(self, scramble=None):
         self.cubies = set()
         for LR in ('L', 'R', ''):
             for UD in ('U', 'D', ''):
@@ -55,6 +57,8 @@ class Cube(object):
                     faces = ''.join((LR, UD, FB))
                     if faces:
                         self.cubies.add(Cubie({Side[f] for f in faces}))
+        if scramble:
+            self.do(scramble)
 
     def face(self, face):
         if isinstance(face, str):
