@@ -115,11 +115,16 @@ class Rotation(object):
     }
 
     def __init__(self, name):
-        self.name = name
-        if isinstance(name, Rotation):
+        if name is None:
+            self.name = "No-op"
+            self.face = None
+            self.seq = {}
+        elif isinstance(name, Rotation):
+            self.name = name.name
             self.face = name.face
             self.seq = name.seq
         elif isinstance(name, str):
+            self.name = name
             self.face = Side[name[0]]
             seq = self.CYLCES[self.face]
             turns = 1
@@ -128,6 +133,10 @@ class Rotation(object):
                     turns = 2
                 elif name[1] == "'":
                     turns = 3
+                else:
+                    raise ValueError
+            if len(name) > 2:
+                raise ValueError
             self.seq = {seq[i]: seq[(i + turns) % 4] for i in range(4)}
             self.seq = {Side[k]: Side[v] for k, v in self.seq.items()}
 
@@ -137,10 +146,12 @@ class Rotation(object):
     def __str__(self):
         return self.name
 
+    def __bool__(self):
+        return bool(self.face)
+
 
 if __name__ == '__main__':
     cube = Cube()
+    cube.do('R U')
     cube.ascii()
-    cube.do("L R F' B' U2 D2")
-    cube.ascii()
-    cube.copy().ascii()
+    print(cube['RUF'])
