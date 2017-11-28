@@ -33,23 +33,20 @@ class F2LSolver(object):
 
 
 if __name__ == '__main__':
-    scramble = "F' U' B2 U2 L2 D' B L' U B L2 D B L F' R' B' R' F2 D F' R D' L2 U'"
-    cross_solve = "B D R' D' B' R2 L2"
+    def make_cube():
+        from solve import simplify_algorithm
+        from cube import Rotation
 
-    algo = "L U L'"
+        scramble = [Rotation(step) for step in "R2 U R U' B U' L F' L' D2".split()]
+        cross_solve = [Rotation(step) for step in "D' B2 D' F B".split()]
+        setup = simplify_algorithm(scramble + cross_solve)
 
-    Cube(algo).ascii()
-    print(algo)
-    solution = F2LSolver(Cube(algo)).solve()
+        print('Scrambling:', ' '.join(map(str, setup)))
+        return Cube(setup)
+
+
+    cube = make_cube()
+    solution = F2LSolver(cube).solve()
     print(' '.join(str(step) for step in solution))
-
-    algo = "B U B'"
-
-    Cube(algo).ascii()
-    print(algo)
-    solution = F2LSolver(Cube(algo)).solve()
-    print(' '.join(str(step) for step in solution))
-
-    print("Expect R U' R:\n      ", ' '.join(str(step) for step in F2LSolver(Cube("R U R'")).solve()))
-    print("Expect R U' R' U R U' R' U2 R U' R':\n      ",
-          ' '.join(str(step) for step in F2LSolver(Cube("R U R' U2 R U R' U' R U R'")).solve()))
+    cube.do(solution)
+    cube.ascii()

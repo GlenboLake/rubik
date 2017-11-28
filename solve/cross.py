@@ -51,13 +51,11 @@ class CrossSolver(object):
 
             paths.update(next_paths)
             new_paths = next_paths
-            print(len(paths))
         return ' '.join(paths[goal_state])
 
 
 if __name__ == '__main__':
-    scramble = "F' U' B2 U2 L2 D' B L' U B L2 D B L F' R' B' R' F2 D F' R D' L2 U'"
-    superflip = "U R2 F B R B2 R U2 L B2 R U' D' R2 F R' L B2 U2 F2"
+    scramble = "R2 U R U' B U' L F' L' D2"
     my_cube = Cube()
     my_cube.do(scramble)
 

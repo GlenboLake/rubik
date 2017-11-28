@@ -1,4 +1,4 @@
-from cube import Rotation, Side
+from cube import Rotation
 
 
 def rotate_algorithm(algorithm, count):
