@@ -11,6 +11,13 @@ def get_case_solution(pair):
         return []
     algorithm = []
 
+    if Side.U not in edge.faces and set(edge.faces) != set(edge.faces.values()):
+        # The edge is not in the U layer, but it's also not in its own slot. Come back to this pair.
+        return None
+    if Side.D in corner.faces and set(corner.faces) != set(corner.faces.values()):
+        # The corner is in the D layer, but it's also not in its own slot. Come back to this pair.
+        return None
+
     # There are two types of transformation to be used. The transform rotation is the number of y turns to do in order
     # to simplify the case down to the RF edge pair, which simplifies algorithm lookup. The alignment rotation is the
     # number of U turns to prepend to the algorithm.
@@ -106,7 +113,7 @@ def get_case_solution(pair):
                         base = "U F' U F U' F' U' F"
                     elif Side.B in edge.faces:
                         # Case 9
-                        base = "U' R U' R' d R' U' R"
+                        base = "U' R U' R' U F' U' F"
             elif corner.R == Side.D:  # D color on R face
                 if edge.U == Side.F:
                     if Side.L in edge.faces:

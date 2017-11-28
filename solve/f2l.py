@@ -15,20 +15,25 @@ class F2LSolver(object):
         self.cube.cubies = corners | edges
 
     def _get_pairs(self):
-        edges = filter(lambda cubie: len(cubie.faces) == 2, self.cube.cubies)
-        pairs = {_F2LPair(edge, next(
-            filter(lambda cubie: set(edge.faces.values()) < set(cubie.faces.values()), self.cube.cubies))) for edge in
-                 edges}
+        pairs = ((Side.L, Side.F), (Side.R, Side.F), (Side.L, Side.B), (Side.R, Side.B))
         for pair in pairs:
-            yield pair
+            edge, corner = sorted(filter(lambda cubie: set(pair) <= set(cubie.faces.values()), self.cube.cubies),
+                                  key=lambda cubie: len(cubie.faces))
+            yield _F2LPair(edge, corner)
 
     def solve(self):
         # print(self.cube.cubies)
         solution = []
-        for pair in self._get_pairs(): # Fix this.
-            pair_solution = get_case_solution(pair)
-            self.cube.do(pair_solution)
-            solution.extend(pair_solution)
+        skips = 1
+        while skips:
+            skips = 0
+            for pair in self._get_pairs():
+                pair_solution = get_case_solution(pair)
+                if pair_solution is None:
+                    skips += 1
+                else:
+                    self.cube.do(pair_solution)
+                    solution.extend(pair_solution)
         return solution
 
 
@@ -46,7 +51,7 @@ if __name__ == '__main__':
 
 
     cube = make_cube()
-    solution = F2LSolver(cube).solve()
-    print(' '.join(str(step) for step in solution))
-    cube.do(solution)
+    f2l_solution = F2LSolver(cube).solve()
+    print(' '.join(str(step) for step in f2l_solution))
+    cube.do(f2l_solution)
     cube.ascii()
