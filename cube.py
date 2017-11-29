@@ -144,6 +144,19 @@ class Rotation(object):
             self.seq = {seq[i]: seq[(i + turns) % 4] for i in range(4)}
             self.seq = {Side[k]: Side[v] for k, v in self.seq.items()}
 
+    def reverse(self):
+        seq = self.CYLCES[self.face]
+        seq = {seq[i]: seq[(i + 1) % 4] for i in range(4)}
+        seq = {Side[k]: Side[v] for k, v in seq.items()}
+        base_seq = seq
+        turns = 1
+        while seq != self.seq:
+            turns += 1
+            seq = {k: base_seq[v] for k, v in seq.items()}
+
+        suffix = {1: '', 2: '2', 3: "'"}[(-turns) % 4]
+        return Rotation(self.face.name + suffix)
+
     def __repr__(self):
         return f"Rotation: {self.face}/{self.seq}"
 
@@ -159,3 +172,5 @@ if __name__ == '__main__':
     cube.do('R U')
     cube.ascii()
     print(cube['RUF'])
+    rots = [Rotation(r).reverse() for r in "R' U2 U D".split()]
+    print(rots)
