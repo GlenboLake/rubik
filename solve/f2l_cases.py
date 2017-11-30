@@ -91,7 +91,7 @@ def get_case_solution(pair):
                 if edge.U == Side.F:
                     if Side.L in edge.faces:
                         # Case 7
-                        base = "U' R U2' R' U2 R U' R'"
+                        base = "U' R U2 R' U2 R U' R'"
                     elif Side.R in edge.faces:
                         # Case 1
                         base = "U R U' R'"
@@ -107,7 +107,7 @@ def get_case_solution(pair):
                         base = "F' U' F"
                     elif Side.R in edge.faces:
                         # Case 11
-                        base = "U' R U2' R' U F' U' F"
+                        base = "U' R U2 R' U F' U' F"
                     elif Side.F in edge.faces:
                         # Case 13
                         base = "U F' U F U' F' U' F"

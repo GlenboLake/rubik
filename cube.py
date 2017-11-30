@@ -138,9 +138,9 @@ class Rotation(object):
                 elif name[1] == "'":
                     turns = 3
                 else:
-                    raise ValueError
+                    raise ValueError(f'{name} is not a valid rotation name')
             if len(name) > 2:
-                raise ValueError
+                raise ValueError(f'{name} is not a valid rotation name')
             self.seq = {seq[i]: seq[(i + turns) % 4] for i in range(4)}
             self.seq = {Side[k]: Side[v] for k, v in self.seq.items()}
 

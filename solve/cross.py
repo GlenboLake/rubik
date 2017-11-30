@@ -62,7 +62,7 @@ class CrossSolver(object):
             paths.update(next_paths)
             new_paths = next_paths
         state = (goals_set & set(paths)).pop()
-        return ' '.join(paths[state] + goals[state])
+        return [Rotation(step) for step in paths[state] + goals[state]]
 
 
 if __name__ == '__main__':
