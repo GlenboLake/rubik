@@ -109,7 +109,7 @@ class Cube(object):
 
 
 class Rotation(object):
-    CYLCES = {
+    CYCLES = {
         Side.L: 'FDBU',
         Side.R: 'FUBD',
         Side.U: 'FLBR',
@@ -130,7 +130,7 @@ class Rotation(object):
         elif isinstance(name, str):
             self.name = name
             self.face = Side[name[0]]
-            seq = self.CYLCES[self.face]
+            seq = self.CYCLES[self.face]
             turns = 1
             if len(name) > 1:
                 if name[1] == '2':
@@ -145,7 +145,7 @@ class Rotation(object):
             self.seq = {Side[k]: Side[v] for k, v in self.seq.items()}
 
     def reverse(self):
-        seq = self.CYLCES[self.face]
+        seq = self.CYCLES[self.face]
         seq = {seq[i]: seq[(i + 1) % 4] for i in range(4)}
         seq = {Side[k]: Side[v] for k, v in seq.items()}
         base_seq = seq
@@ -168,9 +168,9 @@ class Rotation(object):
 
 
 if __name__ == '__main__':
-    cube = Cube()
-    cube.do('R U')
-    cube.ascii()
-    print(cube['RUF'])
+    my_cube = Cube()
+    my_cube.do('R U')
+    my_cube.ascii()
+    print(my_cube['RUF'])
     rots = [Rotation(r).reverse() for r in "R' U2 U D".split()]
     print(rots)

@@ -4,7 +4,7 @@ cases = {
     (1, 0, 1, 0, 1, 0, 0, 0): "R U R' U R U2 R'",
     # -S (Antisune)
     (2, 0, 2, 0, 0, 0, 2, 0): "L' U' L U L' U2 ",
-    # H (Double sune)
+    # H (Double Sune)
     (2, 0, 1, 0, 2, 0, 1, 0): "R U R' U R U' R' U R U2 R'",
     # Pi (Bruno/Wheel)
     (2, 0, 2, 0, 1, 0, 1, 0): "R U2 R2 U' R2 U' R2 U2 R",
@@ -56,9 +56,9 @@ cases = {
     (2, 0, 1, 1, 2, 1, 1, 0): "R' F' L F' L' F L F' L' F2 R",  # Actually l' U' L U' L' U L U' L' U2 l
     # Anti-Frying Pan
     (2, 0, 1, 0, 2, 1, 1, 1): "L F R' F R F' R' F R F2 L'",  # Actually r U R' U R U' R' U R U2 r'
-    # Right back squeezy
+    # Right Back Squeezy
     (1, 1, 1, 1, 2, 0, 2, 0): "R B' R2 F R2 B R2 F' R",
-    # Right front squeezy
+    # Right Front Squeezy
     (2, 1, 2, 0, 1, 0, 1, 1): "R B' R B R2 U2 F R' F' R",
 
     # -- "C" Shapes
@@ -84,9 +84,9 @@ cases = {
     (1, 0, 1, 1, 2, 0, 2, 1): "R' U' R U' R' U F' U F R",
 
     # -- Square shapes
-    # Right back wide antisune
+    # Right Back Wide Antisune
     (1, 1, 1, 0, 0, 0, 1, 1): "L' B2 R B R' B L",  # Actually (r' U2) (R U R' U r)
-    # Right front wide antisune
+    # Right Front Wide Antisune
     (2, 0, 0, 0, 2, 1, 2, 1): "L F2 R' F' R F' L'",  # Actually r U2 R' U' R U' r'
 
     # -- Big lightning bolt shapes

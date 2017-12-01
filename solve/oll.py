@@ -23,7 +23,7 @@ class OLLSolver(object):
         cubies = [self.cube['U' + loc] for loc in ('LB', 'B', 'RB', 'R', 'RF', 'F', 'LF', 'L')]
         print(cubies)
 
-        def count_rotaions(cubie):
+        def count_rotations(cubie):
             u_loc = {v: k for k, v in cubie.faces.items()}[Side.U]
             if u_loc == Side.U:
                 return 0
@@ -32,7 +32,7 @@ class OLLSolver(object):
             else:
                 return 1
 
-        states = tuple(count_rotaions(c) for c in cubies)
+        states = tuple(count_rotations(c) for c in cubies)
         print(states)
         prefix = ''
         while states not in cases:
@@ -47,21 +47,21 @@ if __name__ == '__main__':
 
     scramble = "F' U' B2 U2 L2 D' B L' U B L2 D B L F' R' B' R' F2 D F' R D' L2 U'"
 
-    cube = Cube(scramble)
-    cube.ascii()
+    my_cube = Cube(scramble)
+    my_cube.ascii()
 
-    # cross_solve = CrossSolver(cube).solve()
+    # cross_solve = CrossSolver(my_cube).solve()
     cross_solve = "B2 L2 D R' D' B' R"
-    cube.do(cross_solve)
+    my_cube.do(cross_solve)
     # print('Cross solved:', ' '.join(r.name for r in cross_solve))
-    # cube.ascii()
+    # my_cube.ascii()
 
     # f2l_solve = F2LSolver(cube).solve()
     f2l_solve = "L' U' L U2 R U2 R2 F R F' U' B' U B U2 B' U' B B U' B' U' R' U R"
-    cube.do(f2l_solve)
+    my_cube.do(f2l_solve)
     # print('F2L solved', ' '.join(r.name for r in f2l_solve))
     print('Post-F2L:')
-    cube.ascii()
+    my_cube.ascii()
 
     sleep(1)
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         [Rotation(s) for s in f2l_solve.split()]
     )))
 
-    oll_solve = OLLSolver(cube).solve()
-    cube.do(oll_solve)
+    oll_solve = OLLSolver(my_cube).solve()
+    my_cube.do(oll_solve)
     print('OLL solved', oll_solve)
-    cube.ascii()
+    my_cube.ascii()

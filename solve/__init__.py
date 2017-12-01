@@ -3,10 +3,10 @@ from cube import Rotation
 
 def rotate_algorithm(algorithm, count):
     """Rotate an algorithm about the Y axis"""
-    map = {'R': 'F', 'F': 'L', 'L': 'B', 'B': 'R', 'U': 'U', 'D': 'D'}
+    mapping = {'R': 'F', 'F': 'L', 'L': 'B', 'B': 'R', 'U': 'U', 'D': 'D'}
 
     def map_rotation(rotation):
-        new_base = map[rotation.name[0]]
+        new_base = mapping[rotation.name[0]]
         name = new_base + rotation.name[1:]
         return Rotation(name)
 

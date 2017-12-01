@@ -50,8 +50,8 @@ if __name__ == '__main__':
         return Cube(setup)
 
 
-    cube = make_cube()
-    f2l_solution = F2LSolver(cube).solve()
+    my_cube = make_cube()
+    f2l_solution = F2LSolver(my_cube).solve()
     print(' '.join(str(step) for step in f2l_solution))
-    cube.do(f2l_solution)
-    cube.ascii()
+    my_cube.do(f2l_solution)
+    my_cube.ascii()

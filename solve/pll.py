@@ -39,22 +39,22 @@ if __name__ == '__main__':
 
     scramble = "F' U' B2 U2 L2 D' B L' U B L2 D B L F' R' B' R' F2 D F' R D' L2 U'"
 
-    cube = Cube(scramble)
+    my_cube = Cube(scramble)
     print('Scramble:')
-    cube.ascii()
+    my_cube.ascii()
 
     cross_solve = "B2 L2 D R' D' B' R"
     f2l_solve = "L' U' L U2 R U2 R2 F R F' U' B' U B U2 B' U' B B U' B' U' R' U R"
     oll_solve = "U R U2 R2 U' R U' R' U2 F R F'"
 
-    cube.do(cross_solve)
-    cube.do(f2l_solve)
-    cube.do(oll_solve)
+    my_cube.do(cross_solve)
+    my_cube.do(f2l_solve)
+    my_cube.do(oll_solve)
 
     print('OLL:')
-    cube.ascii()
+    my_cube.ascii()
 
-    pll_solution = PLLSolver(cube).solve()
+    pll_solution = PLLSolver(my_cube).solve()
     print('PLL Solved:', pll_solution)
-    cube.do(pll_solution)
-    cube.ascii()
+    my_cube.do(pll_solution)
+    my_cube.ascii()
