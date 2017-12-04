@@ -21,7 +21,6 @@ class OLLSolver(object):
         # Get list of how many clockwise twists/flips each cubie needs, starting with LUB and working clockwise
         u_cycle = Rotation('U').seq
         cubies = [self.cube['U' + loc] for loc in ('LB', 'B', 'RB', 'R', 'RF', 'F', 'LF', 'L')]
-        print(cubies)
 
         def count_rotations(cubie):
             u_loc = {v: k for k, v in cubie.faces.items()}[Side.U]
@@ -33,12 +32,11 @@ class OLLSolver(object):
                 return 1
 
         states = tuple(count_rotations(c) for c in cubies)
-        print(states)
         prefix = ''
         while states not in cases:
             prefix += 'U '
             states = tuple(states[-2:]+states[:-2])
-        return prefix + cases[states]
+        return simplify_algorithm([Rotation(step) for step in (prefix+cases[states]).split()])
 
 
 if __name__ == '__main__':

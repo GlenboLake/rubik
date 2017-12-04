@@ -1,4 +1,4 @@
-from cube import Rotation
+from cube import Rotation, Cube
 
 
 def rotate_algorithm(algorithm, count):
@@ -40,6 +40,10 @@ def _combine_rotations(r1, r2):
     return rot
 
 
+def algorithm_to_str(algorithm):
+    return ' '.join(step.name for step in algorithm)
+
+
 def simplify_algorithm(algorithm):
     """Remove repeated or reverse turns"""
     if not algorithm:
@@ -53,9 +57,33 @@ def simplify_algorithm(algorithm):
     return [s for s in simple if s]
 
 
-if __name__ == '__main__':
-    print("R + R2 =", _combine_rotations('R', 'R2'))
-    print("R + R' =", _combine_rotations('R', "R'"))
+def solve(cube):
+    from solve.cross import CrossSolver
+    from solve.f2l import F2LSolver
+    from solve.oll import OLLSolver
+    from solve.pll import PLLSolver
 
-    print("L U' L'?", ' '.join(r.name for r in rotate_algorithm([Rotation(step) for step in "R U' R'".split()], 2)))
-    print("B U B?", ' '.join(r.name for r in rotate_algorithm([Rotation(step) for step in "R U R".split()], 1)))
+    cross = CrossSolver(cube).solve()
+    cube.do(cross)
+    print('Found cross solution:', algorithm_to_str(cross))
+
+    f2l = F2LSolver(cube).solve()
+    cube.do(f2l)
+    print('Found F2L solution:', algorithm_to_str(f2l))
+
+    oll = OLLSolver(cube).solve()
+    cube.do(oll)
+    print('Found OLL solution:', algorithm_to_str(oll))
+
+    pll = PLLSolver(cube).solve()
+    cube.do(pll)
+    print('Found PLL solution:', algorithm_to_str(pll))
+
+
+if __name__ == '__main__':
+    scramble = "L' U' R' D R F' R F2 L U"
+    print('Scrambling:', scramble)
+
+    cube = Cube(scramble)
+    solve(cube)
+    cube.ascii()

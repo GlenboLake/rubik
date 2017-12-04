@@ -29,13 +29,13 @@ class PLLSolver(object):
             positions = tuple(positions[-2:] + positions[:-2])
             if not simplify_algorithm([Rotation(s) for s in prefix.split()]):
                 raise NotImplementedError(f"Case not handled: {positions}")
-        return prefix + cases[positions]
+        return simplify_algorithm([Rotation(step) for step in (prefix + cases[positions]).split()])
 
 
 if __name__ == '__main__':
     from cube import Cube
 
-    print(PLLSolver(Cube("R' U R U' R2 F' U' F U R F R' F' R2 U'")).solve())
+    print(PLLSolver(Cube("U' L' U2 L U L' U2 R U' L U R'")).solve())
 
     scramble = "F' U' B2 U2 L2 D' B L' U B L2 D B L F' R' B' R' F2 D F' R D' L2 U'"
 
