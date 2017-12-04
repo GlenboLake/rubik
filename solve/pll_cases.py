@@ -67,3 +67,9 @@ cases = {
     # Y
     cycles_to_seq((0, 4), (1, 7)): "R' U' R F2 R' U R U F2 U' F2 U' F2",
 }
+_update = {}
+for case, algo in cases.items():
+    _update[tuple(map(lambda x: (x + 2) % 8, case))] = algo + ' U'
+    _update[tuple(map(lambda x: (x + 4) % 8, case))] = algo + ' U2'
+    _update[tuple(map(lambda x: (x + 6) % 8, case))] = algo + " U'"
+cases.update(_update)
